@@ -4,9 +4,9 @@
 
 // Variables
 @import "variables";
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "category";
 
 .navbar-laravel {
   background-color: #4c6989;
@@ -32,4 +32,8 @@
 
 .navbar-brand {
   color: $navbar-light-color;
+}
+
+a:hover {
+  text-decoration: none;
 }
