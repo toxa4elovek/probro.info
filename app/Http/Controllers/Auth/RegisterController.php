@@ -2,71 +2,51 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Entity\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\Auth\RegisterService;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/cabinet';
+    private $service;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(RegisterService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
+    public function register(RegisterRequest $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->service->register($request);
+
+        return redirect()->route('login')
+            ->with('success', 'Проверьте свою почту для подтверждения email');
+    }
+    public function verify($token)
+    {
+        /**@var User $user*/
+        if (!$user = User::where('verify_token',$token)->first()) {
+            return redirect()->route('login')
+                ->with('error', 'Извините, ссылка не идентифицирована');
+        }
+
+        try {
+            $this->service->verify($user->id);
+
+            return redirect()->route('login')
+                ->with('success', 'Подтверждение успешно пожалуйста авторизуйтесь');
+        } catch (\DomainException $e) {
+            return redirect()->route('login')
+                ->with('error', $e->getMessage());
+        }
     }
 }

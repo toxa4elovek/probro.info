@@ -9,16 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body>
 <div id="app">
@@ -40,32 +39,45 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+
+                    @can('admin-panel')
+                        <li class="nav-item">
+                            <div class="navbar-hover">
+                                <a class="nav-link" href="{{ route('admin.home') }}">
+                                    Админка
+                                </a>
+                            </div>
+                        </li>
+                    @endcan
                     <!-- Authentication Links -->
                     @guest
-                        <li class="nav-item">
-                            <div class="navbar-hover">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register') }}</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="navbar-hover">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('messages.login') }}</a>
-                            </div>
+                    <li class="nav-item">
+                        <div class="navbar-hover">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register') }}</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="navbar-hover">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('messages.login') }}</a>
+                        </div>
 
-                        </li>
+                    </li>
 
                     @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                        <li class="nav-item">
+                            <div class="navbar-hover">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('cabinet.home') }}">
+                                    {{ Auth::user()->name }}
+                                </a>
+                            </div>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                        </li>
+                        <li class="nav-item">
+                            <div class="navbar-hover">
+                                <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                                         document.getElementById('logout-form').submit();">
+                                    {{ __('messages.logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -81,8 +93,13 @@
     </nav>
 
     <main class="py-4">
+        @include('layouts.elements.flash-messages')
         @yield('content')
     </main>
 </div>
+
+
+@yield('scripts')
+
 </body>
 </html>
