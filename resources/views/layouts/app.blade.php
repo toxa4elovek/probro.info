@@ -14,6 +14,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -96,6 +97,11 @@
         @include('layouts.elements.flash-messages')
         @yield('content')
     </main>
+    <div class="footer-block">
+        <a href="#">О нас</a>
+        <a href="#">Помощь</a>
+        <a href="#">Правила</a>
+    </div>
 </div>
 
 
