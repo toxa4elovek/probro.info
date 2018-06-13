@@ -28,6 +28,8 @@ Route::group(
     function () {
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('category', 'CategoriesController');
+        Route::resource('users', 'UsersController')->only(['index']);
+        Route::post('users/verify/{user}', 'UsersController@verify')->name('users.verify');
     }
 );
 
