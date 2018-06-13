@@ -24,7 +24,7 @@ Route::get('/post/view', function () {
 Route::get('/profile', function () {
     return view('user.profile.update');
 });
-=======
+
 Route::group(
     [
         'prefix' => 'admin',
