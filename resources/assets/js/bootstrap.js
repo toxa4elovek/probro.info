@@ -12,6 +12,10 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('bootstrap-fileinput');
+    require('bootstrap-fileinput/js/locales/ru');
+    require('summernote/dist/summernote-bs4.js');
+    require('summernote/lang/summernote-ru-Ru.js');
 } catch (e) {}
 
 /**

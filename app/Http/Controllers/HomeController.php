@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Entity\Post\Category;
+use App\Entity\Post\Post;
+use App\Helpers\PostHelper;
 
 class HomeController extends Controller
 {
@@ -13,6 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categories = Category::where('parent_id', null)->get();
+        $posts = Post::where('status', PostHelper::STATUS_ACTIVE)->paginate(20);
+
+        return view('home', compact('categories', 'posts'));
     }
 }
