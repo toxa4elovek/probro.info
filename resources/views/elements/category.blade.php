@@ -19,8 +19,8 @@
                 @foreach($categories as $category)
                     <li class="category-item nav-item">
                         <a class="category-link" href="">
-                            <span class="category-name">{{ $category }}</span>
-                            <span class="category-count">508</span>
+                            <span class="category-name">{{ $category->name }}</span>
+                            <span class="category-count">{{ $category->posts->count() }}</span>
                         </a>
                     </li>
                 @endforeach

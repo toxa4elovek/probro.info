@@ -2,6 +2,8 @@
 
 namespace App\Entity\Post;
 
+use App\Entity\Tag;
+use App\Entity\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,4 +22,20 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = ['owner_id', 'category_id', 'title', 'description', 'status', 'published_at'];
+
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    public function tags()
+    {
+        return $this->hasManyThrough(Tag::class, 'post_tags', 'post_id', 'tag_id', 'id', 'id');
+    }
 }

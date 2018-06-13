@@ -3,10 +3,13 @@
         <h2>Администрирование</h2>
     </div>
     <ul class="post-list">
+
+        @foreach($posts as $post)
+
         <li class="post-block">
             <div class="post-block-header">
                 <h3>
-                    <a class="post-block-header-link" href="#">Заголовок поста</a>
+                    <a class="post-block-header-link" href="#">{{ $post->title }}</a>
                 </h3>
             </div>
             <div class="post-block-content">
@@ -19,9 +22,9 @@
                 </nav>
                 <div class="post-block-content-body">
                     <div class="body-content">
-                        <img class="body-img rounded float-left img-fluid" src={{ asset('img/boom.jpg') }} alt="">
+                        <img class="body-img rounded float-left img-fluid" src={{ $post->img }} alt="">
                         <p class="body-text text-justify">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.
+                            {!! str_limit(nl2br($post->description), 800) !!}
                         </p>
                     </div>
                     <div class="read-more">
@@ -30,12 +33,12 @@
                     <div class="statistics clear">
                         <div class="post-statistics">
                             <a href="#" class="fa fa-calendar">
-                                <time>13-11-2017</time>
+                                <time>{{ $post->published_at }}</time>
                             </a>
                         </div>
                         <div class="post-statistics">
                             <a href="#" class="fa fa-user">
-                                <span>Евгений Ракушкин</span>
+                                <span>{{ $post->owner->name }}</span>
                             </a>
                         </div>
                         <div class="post-statistics">
@@ -57,5 +60,7 @@
                 </div>
             </div>
         </li>
+
+        @endforeach
     </ul>
 </div>

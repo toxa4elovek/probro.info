@@ -20,4 +20,11 @@ class Category extends Model
     use NodeTrait;
 
     protected $table = 'post_categories';
+
+    protected $fillable = ['name', 'slug', 'parent_id'];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category_id', 'id');
+    }
 }
