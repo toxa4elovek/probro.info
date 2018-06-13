@@ -11,10 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
+Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(
+    [
+        'prefix' => 'admin',
+        'as' => 'admin.',
+        'namespace' => 'Admin',
+        'middleware' => ['can:admin-panel']
+    ],
+    function () {
+        Route::get('/', 'HomeController@index')->name('home');
+    }
+);
+
+Route::group(
+    [
+        'prefix' => 'cabinet',
+        'as' => 'cabinet.',
+        'namespace' => 'Cabinet',
+        'middleware' => ['auth']
+    ],
+    function () {
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::resource('post', 'PostsController');
+    }
+);
