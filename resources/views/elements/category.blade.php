@@ -15,16 +15,26 @@
 
 
         <div class="category-block-content collapse navbar-collapse" id="navbarCategoryContent">
+            @if(count($categories) > 0)
             <ul class="category-list navbar-nav">
                 @foreach($categories as $category)
                     <li class="category-item nav-item">
-                        <a class="category-link" href="">
+                        <a class="category-link" href="{{ route('category', $category) }}">
                             <span class="category-name">{{ $category->name }}</span>
                             <span class="category-count">{{ $category->posts->count() }}</span>
                         </a>
                     </li>
                 @endforeach
             </ul>
+            @else
+                <ul class="category-list navbar-nav">
+                    <li class="category-item nav-item">
+                        <a class="category-link" href="{{ route('home') }}">
+                            Домой
+                        </a>
+                    </li>
+                </ul>
+            @endif
         </div>
     </div>
 </div>

@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/category/{category}', 'HomeController@category')->name('category')->where('category', '.+');
 
 Route::group(
     [
@@ -26,6 +27,7 @@ Route::group(
     ],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
+        Route::resource('category', 'CategoriesController');
     }
 );
 

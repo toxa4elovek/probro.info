@@ -20,4 +20,13 @@ class HomeController extends Controller
 
         return view('home', compact('categories', 'posts'));
     }
+
+    public function category(Category $category)
+    {
+        $categories = $category->children;
+        $category_ids = array_merge([$category->id], $categories->pluck('id')->toArray());
+        $posts = Post::whereIn('category_id', $category_ids)->getModels();
+
+        return view('home', compact('categories', 'posts', 'category'));
+    }
 }

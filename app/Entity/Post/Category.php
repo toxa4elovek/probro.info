@@ -11,6 +11,8 @@ use Kalnoy\Nestedset\NodeTrait;
  * @mixin \Eloquent
  * @property int $id
  * @property string $name
+ * @property Category[] $children
+ * @property Category $parent
  * @property string $slug
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -26,5 +28,20 @@ class Category extends Model
     public function posts()
     {
         return $this->hasMany(Post::class, 'category_id', 'id');
+    }
+
+    public function getRouteSlug()
+    {
+        return implode('/', array_merge($this->ancestors()->defaultOrder()->pluck('slug')->toArray(), [$this->slug]));
+    }
+
+    public function getRouteKey()
+    {
+        return $this->slug;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

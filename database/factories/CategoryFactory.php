@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [
-        'name' => $name = $faker->unique()->jobTitle,
+        'name' => $name = $faker->jobTitle,
         'slug' => Str::slug($name),
         'parent_id' => null
     ];
