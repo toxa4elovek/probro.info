@@ -15,3 +15,11 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/post/view', function () {
+    return view('post.view');
+});
+
+Route::get('/profile', function () {
+    return view('user.profile.update');
+});

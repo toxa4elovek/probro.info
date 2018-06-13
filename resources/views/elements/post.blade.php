@@ -16,13 +16,12 @@
                 </nav>
                 <div class="post-block-content-body">
                     <div class="body-content">
-                        <img class="body-img rounded float-left img-fluid" src={{ asset('img/boom.jpg') }} alt="">
+                        <img class="body-img-full rounded float-left img-fluid" src={{ asset('img/boom.jpg') }} alt="">
                         <p class="body-text text-justify">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.
                         </p>
-                    </div>
-                    <div class="read-more">
-                        <a href="#">Читать далее</a>
                     </div>
                     <div class="statistics clear">
                         <div class="post-statistics">
@@ -38,14 +37,6 @@
                     </div>
                 </div>
             </div>
-        </li>
-        <li class="more-post">
-            <a href="#" class="more-post-button">
-                <svg>
-                    <line x1="0" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
-                    <line x1="200" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
-                </svg>
-            </a>
         </li>
     </ul>
 </div>
