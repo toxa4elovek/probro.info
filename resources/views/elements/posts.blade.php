@@ -42,7 +42,7 @@
                 </div>
             </div>
         </li>
-<<<<<<< HEAD
+
         <li class="more-post">
             <a href="#" class="more-post-button">
                 <svg>
@@ -51,9 +51,9 @@
                 </svg>
             </a>
         </li>
-=======
+
 
         @endforeach
->>>>>>> 665b01d5ec86acb1e37f12a34bf049938a654b09
+
     </ul>
 </div>

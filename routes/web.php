@@ -17,7 +17,6 @@ Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.
 
 Route::get('/', 'HomeController@index')->name('home');
 
-<<<<<<< HEAD
 Route::get('/post/view', function () {
     return view('post.view');
 });
@@ -50,4 +49,3 @@ Route::group(
         Route::resource('post', 'PostsController');
     }
 );
->>>>>>> 665b01d5ec86acb1e37f12a34bf049938a654b09
