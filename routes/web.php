@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/category/{category}', 'HomeController@category')->name('category')->where('category', '.+');
+Route::get('/category/{category_path}', 'HomeController@category')->name('category')->where('category_path', '.+');
 
 Route::group(
     [
@@ -41,7 +41,7 @@ Route::group(
         'middleware' => ['auth']
     ],
     function () {
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'PostsController@index')->name('home');
         Route::resource('post', 'PostsController');
     }
 );

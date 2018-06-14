@@ -30,9 +30,18 @@ class Category extends Model
         return $this->hasMany(Post::class, 'category_id', 'id');
     }
 
-    public function getRouteSlug()
+    /**
+     * @return string
+     */
+    public function getRouteSlug(): string
     {
         return implode('/', array_merge($this->ancestors()->defaultOrder()->pluck('slug')->toArray(), [$this->slug]));
+    }
+
+    public function getPostsCount()
+    {
+        return Post::whereIn('category_id', array_merge($this->descendants()->pluck('id')->toArray(), [$this->id]))
+            ->count();
     }
 
     public function getRouteKey()

@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', Auth::id());
+        $posts = Post::where('owner_id', Auth::id())->orderBy('published_at')->get();
 
         return view('cabinet.post.index', compact('posts'));
     }

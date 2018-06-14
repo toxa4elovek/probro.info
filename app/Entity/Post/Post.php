@@ -15,13 +15,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $description
  * @property string $status
+ * @property string $slug
  * @property string|null $published_at
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  */
 class Post extends Model
 {
-    protected $fillable = ['owner_id', 'category_id', 'title', 'description', 'status', 'published_at'];
+    protected $fillable = ['owner_id', 'category_id', 'title', 'description', 'status', 'slug', 'published_at'];
 
 
     public function category()

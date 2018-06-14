@@ -12,7 +12,7 @@
 
         @include('elements.category', ['categories' => $categories])
 
-        @include('elements.posts', ['posts' => $posts])
+        @include('elements.posts', ['posts' => $posts, 'categoryName' => 'Все'])
 
     </div>
 </div>

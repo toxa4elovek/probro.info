@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,36 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            $this->sendLockoutResponse($request);
+        }
+
+        $authenticate = Auth::attempt(
+            $request->only(['email', 'password']),
+            $request->filled('remember')
+        );
+
+        if ($authenticate) {
+            $request->session()->regenerate();
+            $this->clearLoginAttempts($request);
+            $user = Auth::user();
+
+            if (!$user->isActive()) {
+                Auth::logout();
+
+                return back()->with('error', 'Вы должны подвердить свой email. Пожалуйста проверьте почту');
+            }
+
+            return redirect()->intended(route('cabinet.home'));
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        throw ValidationException::withMessages(['email' => [trans('auth.failed')]]);
     }
 }
