@@ -8,6 +8,19 @@
 @import '~bootstrap/scss/bootstrap';
 @import "category";
 @import "post";
+@import "profile";
+
+li {
+  list-style: none;
+}
+
+a {
+  color: #212529;
+}
+
+a:hover {
+  color: #4c6989;
+}
 
 #app {
   min-height: 100vh;

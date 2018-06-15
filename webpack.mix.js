@@ -13,5 +13,6 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
-
+mix.js('resources/assets/js/post/create.js', 'public/js/post/create.js');
+mix.js('resources/assets/js/post/edit.js', 'public/js/post/edit.js');
 mix.sass('resources/assets/sass/modules.scss', 'public/css');

@@ -6,5 +6,5 @@
  */
 
 require('./bootstrap');
-require('./post/create');
 
+console.log('app');

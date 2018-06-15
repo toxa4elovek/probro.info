@@ -1,12 +1,18 @@
 <div class="col-md-8">
     <div class="post-item">
-        <h2>Администрирование</h2>
+        <h2>{{ $categoryName }}</h2>
     </div>
+
+    @if(count($posts) > 0)
+
     <ul class="post-list">
+
+        @foreach($posts as $post)
+
         <li class="post-block">
             <div class="post-block-header">
                 <h3>
-                    <a class="post-block-header-link" href="#">Заголовок поста</a>
+                    <a class="post-block-header-link" href="#">{{ $post->title }}</a>
                 </h3>
             </div>
             <div class="post-block-content">
@@ -19,9 +25,9 @@
                 </nav>
                 <div class="post-block-content-body">
                     <div class="body-content">
-                        <img class="body-img rounded float-left img-fluid" src={{ asset('img/boom.jpg') }} alt="">
+                        <img class="body-img rounded float-left img-fluid" src={{ $post->img }} alt="">
                         <p class="body-text text-justify">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda at aut deserunt dignissimos dolor ex explicabo, incidunt iusto laboriosam libero nihil officia placeat, quia quis quos sed sunt unde.
+                            {!! str_limit(nl2br($post->description), 800) !!}
                         </p>
                     </div>
                     <div class="read-more">
@@ -30,32 +36,34 @@
                     <div class="statistics clear">
                         <div class="post-statistics">
                             <a href="#" class="fa fa-calendar">
-                                <time>13-11-2017</time>
+                                <time>{{ $post->published_at }}</time>
                             </a>
                         </div>
                         <div class="post-statistics">
                             <a href="#" class="fa fa-user">
-                                <span>Евгений Ракушкин</span>
+                                <span>{{ $post->owner->name }}</span>
                             </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-eye">
-                                <span>585</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-star">
-                                <span>53</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-thumbs-up"></a>
-                            <span>53</span>
-                            <a href="#" class="fa fa-thumbs-down"></a>
                         </div>
                     </div>
                 </div>
             </div>
         </li>
+
+        @endforeach
+
+            <li class="more-post">
+                <a href="#" class="more-post-button">
+                    <svg>
+                        <line x1="0" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                        <line x1="200" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                    </svg>
+                </a>
+            </li>
+
+
     </ul>
+
+    @else
+        <h4>Постов не найдено</h4>
+    @endif
 </div>

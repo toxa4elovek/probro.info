@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Post\Post;
 use App\Helpers\UserHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,12 +44,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * @return bool
-     */
-    public function isAdmin(): bool
+    public function posts()
     {
-        return $this->role === UserHelper::ROLE_ADMIN;
+        return $this->hasMany(Post::class, 'owner_id', 'id');
     }
 
     /**
@@ -59,7 +57,7 @@ class User extends Authenticatable
      */
     public static function register(string $name, string $email, string $password): User
     {
-        return User::create([
+        return self::create([
             'name' => $name,
             'email' => $email,
             'password' => bcrypt($password),
@@ -78,5 +76,18 @@ class User extends Authenticatable
             'status' => UserHelper::STATUS_ACTIVE,
             'verify_token' => null
         ]);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === UserHelper::STATUS_ACTIVE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === UserHelper::ROLE_ADMIN;
     }
 }

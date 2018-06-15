@@ -16,6 +16,15 @@ Auth::routes();
 Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/category/{category_path}', 'HomeController@category')->name('category')->where('category_path', '.+');
+
+Route::get('/post/view', function () {
+    return view('post.view');
+});
+
+Route::get('/profile', function () {
+    return view('user.profile.update');
+});
 
 Route::group(
     [
@@ -26,6 +35,9 @@ Route::group(
     ],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
+        Route::resource('category', 'CategoriesController');
+        Route::resource('users', 'UsersController')->only(['index']);
+        Route::post('users/verify/{user}', 'UsersController@verify')->name('users.verify');
     }
 );
 
@@ -37,7 +49,8 @@ Route::group(
         'middleware' => ['auth']
     ],
     function () {
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'PostsController@index')->name('home');
         Route::resource('post', 'PostsController');
+        Route::post('/post/moderate/{post}', 'PostsController@moderate')->name('post.moderate');
     }
 );
