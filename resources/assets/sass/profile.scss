@@ -1,0 +1,92 @@
+.tab-block-left, .tab-block-right {
+  margin: 3rem 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  background-color: $navbar-div-hover-color;
+}
+
+.tab-link {
+  color: #212529;
+}
+
+.profile-block {
+  margin-bottom: 3rem;
+  transition: box-shadow 150ms linear;
+  box-shadow: 0 1px 3px rgba(76,105,137,.28);
+  border: 0.07rem solid #cbd6e2;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -o-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.profile-block:hover {
+  -webkit-box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+  -moz-box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+  box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+}
+
+.form-active {
+  padding: 1rem;
+}
+
+.form-group input, .form-group textarea {
+  background: none;
+  color: #4c6989;
+  letter-spacing: 1px;
+  border: 1px solid #cbd6e2;
+  padding: 0.5rem 0.6re,;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -o-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+  outline: none;
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: none!important;
+}
+
+.form-control {
+  display: block;
+  padding: 0.4rem 0.9rem;
+  line-height: 1.42857143;
+  color: #555;
+  background: #fff;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-group input:active, .form-group input:focus, .form-group textarea:active, .form-group textarea:focus {
+  border: 1px solid #4c8889;
+}
+
+.profile-block .button {
+  text-align: right;
+  outline: none;
+}
+
+.profile-block .btn-primary {
+  background: #6686aa;
+  border-color: #4c6989;
+  outline: none;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -o-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+  background-color: #4c6989;
+  border-color: #4c6989;
+}
+
+.btn:focus, .btn-primary:focus {
+  box-shadow: none;
+}

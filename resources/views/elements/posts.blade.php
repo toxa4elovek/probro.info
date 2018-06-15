@@ -44,27 +44,23 @@
                                 <span>{{ $post->owner->name }}</span>
                             </a>
                         </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-eye">
-                                <span>585</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-star">
-                                <span>53</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-thumbs-up"></a>
-                            <span>53</span>
-                            <a href="#" class="fa fa-thumbs-down"></a>
-                        </div>
                     </div>
                 </div>
             </div>
         </li>
 
         @endforeach
+
+            <li class="more-post">
+                <a href="#" class="more-post-button">
+                    <svg>
+                        <line x1="0" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                        <line x1="200" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                    </svg>
+                </a>
+            </li>
+
+
     </ul>
 
     @else
