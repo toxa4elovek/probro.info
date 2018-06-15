@@ -8,7 +8,7 @@
 
     <div class="container">
 
-        <form action="{{ route('cabinet.post.store')}}" method="post">
+        <form action="{{ route('cabinet.post.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="card mb-3">
@@ -38,8 +38,13 @@
                                 <div class="form-group">
                                     <label for="category">{{ __('messages.category') }}</label>
                                     <select class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category" name="category_id">
-                                        <option>1</option>
-                                        <option>2</option>
+                                        <option>Выберите категорию</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ (int)old('category_id') === $category->id ? 'selected' : '' }}>
+                                                @for($i = 0; $i < $category->depth; $i++) &mdash; @endfor
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     @if ($errors->has('category_id'))
                                         <span class="invalid-feedback">
@@ -84,4 +89,6 @@
     </div>
 
 @endsection
-
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/post/create.js') }}" defer></script>
+@endsection

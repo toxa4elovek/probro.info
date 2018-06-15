@@ -18,6 +18,7 @@ class CreateTablePosts extends Migration
             $table->integer('owner_id')->on('users')->onDelete('RESTRICT');
             $table->integer('category_id')->on('post_categories')->onDelete('RESTRICT');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->string('status');
             $table->string('img');

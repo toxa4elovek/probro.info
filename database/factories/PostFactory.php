@@ -7,6 +7,7 @@ use App\Helpers\UserHelper;
 use App\Entity\Post\Category;
 use App\Helpers\PostHelper;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 $factory->define(Post::class, function (Faker $faker) {
     $active = $faker->boolean(70);
@@ -14,7 +15,8 @@ $factory->define(Post::class, function (Faker $faker) {
     return [
         'owner_id' => $faker->randomElement(User::where('status', UserHelper::STATUS_ACTIVE)->pluck('id')->toArray()),
         'category_id' => $faker->randomElement(Category::all()->pluck('id')->toArray()),
-        'title' => $faker->text(100),
+        'title' => $slug = $faker->text(100),
+        'slug' => Str::slug($slug),
         'description' => $faker->text(10000),
         'status' => $active ? PostHelper::STATUS_ACTIVE : PostHelper::STATUS_MODERATE,
         'img' => $faker->imageUrl(),

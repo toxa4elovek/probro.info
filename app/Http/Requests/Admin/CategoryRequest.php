@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|string|max:255',
-            'password' => 'required|string|min:6',
+            'name' => 'string|required|max:255',
+            'parent' => 'nullable|integer|exists:post_categories,id'
         ];
     }
 }

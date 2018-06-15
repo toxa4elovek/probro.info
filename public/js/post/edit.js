@@ -60,30 +60,33 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 44);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 44:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(45);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
+
 $(document).ready(function () {
-    console.log('load-create');
+
+    console.log('load-edit');
     $('#postImg').fileinput({
         showCancel: false,
         language: 'ru',
         maxFileCount: 1,
         showUpload: false,
         required: true,
+        initialPreview: '<img style="width:auto;height:auto;max-width:100%;max-height:100%;" src="/' + postImg + '">',
         allowedFileExtensions: ["jpg", "png", "gif"]
     });
 

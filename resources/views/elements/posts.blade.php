@@ -1,4 +1,10 @@
 <div class="col-md-8">
+    <div class="post-item">
+        <h2>{{ $categoryName }}</h2>
+    </div>
+
+    @if(count($posts) > 0)
+
     <ul class="post-list">
 
         @foreach($posts as $post)
@@ -56,4 +62,8 @@
 
 
     </ul>
+
+    @else
+        <h4>Постов не найдено</h4>
+    @endif
 </div>
