@@ -63,7 +63,7 @@ class LoginController extends Controller
                 return back()->with('error', 'Вы должны подвердить свой email. Пожалуйста проверьте почту');
             }
 
-            return redirect()->intended(route('cabinet.home'));
+            return redirect()->intended(route('cabinet.post.index'));
         }
 
         $this->incrementLoginAttempts($request);

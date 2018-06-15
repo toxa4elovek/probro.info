@@ -68,7 +68,7 @@
                     @else
                         <li class="nav-item">
                             <div class="navbar-hover">
-                                <a id="navbarDropdown" class="nav-link" href="{{ route('cabinet.home') }}">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('cabinet.post.index') }}">
                                     {{ Auth::user()->name }}
                                 </a>
                             </div>

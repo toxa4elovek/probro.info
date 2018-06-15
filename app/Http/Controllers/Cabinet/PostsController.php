@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet;
 use App\Entity\Post\Category;
 use App\Entity\Post\Post;
 use App\Http\Requests\Cabinet\PostRequest;
+use App\Http\Requests\Cabinet\PostUpdateRequest;
 use App\Services\Cabinet\PostService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,7 @@ class PostsController extends Controller
     {
         $post = $this->service->save($request);
 
-        return redirect()->route('cabinet.home')->with('success', 'объявление успешно сохранено');
+        return redirect()->route('cabinet.post.index')->with('success', 'объявление успешно сохранено');
     }
 
     /**
@@ -64,9 +65,15 @@ class PostsController extends Controller
     }
 
 
-    public function update(PostRequest $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post)
     {
-        //
+        try {
+            $this->service->update($request, $post);
+
+            return redirect()->route('cabinet.post.index')->with('success', __('tips.updatePostSuccess'));
+        } catch (\DomainException $e) {
+            return redirect()->route('cabinet.post.index')->with('error', $e->getMessage());
+        }
     }
 
     public function destroy(Post $post)
@@ -93,9 +100,9 @@ class PostsController extends Controller
         try {
             $this->service->moderate($post->id);
 
-            return redirect()->route('cabinet.home')->with('success', "Пост отправлен на модерацию");
+            return redirect()->route('cabinet.post.index')->with('success', "Пост отправлен на модерацию");
         } catch (\DomainException $e) {
-            return redirect()->route('cabinet.home')->with('error', $e->getMessage());
+            return redirect()->route('cabinet.post.index')->with('error', $e->getMessage());
         }
     }
 }

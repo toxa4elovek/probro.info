@@ -9,6 +9,7 @@ namespace App\Services\Cabinet;
 use App\Entity\Post\Post;
 use App\Helpers\PostHelper;
 use App\Http\Requests\Cabinet\PostRequest;
+use App\Http\Requests\Cabinet\PostUpdateRequest;
 use Illuminate\Http\UploadedFile;
 
 class PostService
@@ -29,13 +30,31 @@ class PostService
         return $post;
     }
 
+    public function update(PostUpdateRequest $request, Post $post): bool
+    {
+        if ($post->isActive()) {
+            throw new \DomainException('Нельзя редактировать опубликованный пост');
+        }
+
+        return $post->update([
+            'title' => $request['title'],
+            'category_id' => $request['category_id'],
+            'description' => $request['description'],
+            'status' => PostHelper::STATUS_DRAFT,
+            'img' => $request['img'] instanceof UploadedFile
+                ? $this->saveFile($request['img'])
+                : $post->img,
+            'slug' => str_slug($request['title'])
+        ]);
+    }
+
     private function saveFile(UploadedFile $file): string
     {
         $fileName = $file->hashName();
         $directory = substr($fileName, 0, 3) . '/'
                     .substr($fileName, 0, 2);
 
-        return 'storage/' . $file->store('posts/' . $directory, 'public');
+        return '/storage/' . $file->store('posts/' . $directory, 'public');
     }
 
     /**

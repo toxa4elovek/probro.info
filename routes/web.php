@@ -49,7 +49,7 @@ Route::group(
         'middleware' => ['auth']
     ],
     function () {
-        Route::get('/', 'PostsController@index')->name('home');
+        Route::get('/profile', 'HomeController@profile')->name('profile');
         Route::resource('post', 'PostsController');
         Route::post('/post/moderate/{post}', 'PostsController@moderate')->name('post.moderate');
     }

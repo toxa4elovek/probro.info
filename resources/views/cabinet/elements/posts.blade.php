@@ -1,8 +1,4 @@
 <div class="col-md-8">
-    <div class="post-item">
-        <h2>{{ $categoryName }}</h2>
-    </div>
-
     @if(count($posts) > 0)
 
     <ul class="post-list">
@@ -45,28 +41,13 @@
                     <div class="statistics clear">
                         <div class="post-statistics">
                             <a href="#" class="fa fa-calendar">
-                                <time>{{ $post->published_at }}</time>
+                                <time>{{ $post->created_at }}</time>
                             </a>
                         </div>
                         <div class="post-statistics">
                             <a href="#" class="fa fa-user">
                                 <span>{{ $post->owner->name }}</span>
                             </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-eye">
-                                <span>585</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-star">
-                                <span>53</span>
-                            </a>
-                        </div>
-                        <div class="post-statistics">
-                            <a href="#" class="fa fa-thumbs-up"></a>
-                            <span>53</span>
-                            <a href="#" class="fa fa-thumbs-down"></a>
                         </div>
                     </div>
                 </div>
