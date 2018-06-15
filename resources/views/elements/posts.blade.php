@@ -43,17 +43,17 @@
             </div>
         </li>
 
-        <li class="more-post">
-            <a href="#" class="more-post-button">
-                <svg>
-                    <line x1="0" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
-                    <line x1="200" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
-                </svg>
-            </a>
-        </li>
-
-
         @endforeach
+
+            <li class="more-post">
+                <a href="#" class="more-post-button">
+                    <svg>
+                        <line x1="0" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                        <line x1="200" y1="0" x2="100" y2="40" stroke="black" stroke-width="3"></line>
+                    </svg>
+                </a>
+            </li>
+
 
     </ul>
 </div>
