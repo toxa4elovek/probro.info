@@ -18,9 +18,7 @@ Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{category_path}', 'HomeController@category')->name('category')->where('category_path', '.+');
 
-Route::get('/post/view', function () {
-    return view('post.view');
-});
+Route::get('/post/{slug}', 'PostController@show')->name('post.show');
 
 Route::get('/profile', function () {
     return view('user.profile.update');
@@ -50,7 +48,7 @@ Route::group(
     ],
     function () {
         Route::get('/profile', 'HomeController@profile')->name('profile');
-        Route::resource('post', 'PostsController');
+        Route::resource('post', 'PostsController')->except('show');
         Route::post('/post/moderate/{post}', 'PostsController@moderate')->name('post.moderate');
     }
 );

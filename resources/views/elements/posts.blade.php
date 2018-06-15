@@ -12,7 +12,7 @@
         <li class="post-block">
             <div class="post-block-header">
                 <h3>
-                    <a class="post-block-header-link" href="#">{{ $post->title }}</a>
+                    <a class="post-block-header-link" href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a>
                 </h3>
             </div>
             <div class="post-block-content">

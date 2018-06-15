@@ -43,18 +43,8 @@ class PostsController extends Controller
     {
         $post = $this->service->save($request);
 
-        return redirect()->route('cabinet.post.index')->with('success', 'объявление успешно сохранено');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('post.show', ['slug' => $post->slug])
+            ->with('success', 'Объявление успешно сохранено');
     }
 
     public function edit(Post $post)
