@@ -43,5 +43,6 @@ Route::group(
     function () {
         Route::get('/', 'PostsController@index')->name('home');
         Route::resource('post', 'PostsController');
+        Route::post('/post/moderate/{post}', 'PostsController@moderate')->name('post.moderate');
     }
 );

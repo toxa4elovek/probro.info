@@ -60,16 +60,41 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
-(function webpackMissingModule() { throw new Error("Cannot find module \"E:\\projects\\blog.lr\\resources\\assets\\js\\admin\\admin.js\""); }());
+module.exports = __webpack_require__(47);
 
+
+/***/ }),
+
+/***/ 47:
+/***/ (function(module, exports) {
+
+
+$(document).ready(function () {
+
+    console.log('load-edit');
+    $('#postImg').fileinput({
+        showCancel: false,
+        language: 'ru',
+        maxFileCount: 1,
+        showUpload: false,
+        required: true,
+        initialPreview: '<img style="width:auto;height:auto;max-width:100%;max-height:100%;" src="/' + postImg + '">',
+        allowedFileExtensions: ["jpg", "png", "gif"]
+    });
+
+    $('#description').summernote({
+        lang: 'ru-RU',
+        height: 300
+    });
+});
 
 /***/ })
 

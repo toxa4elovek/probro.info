@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers\Cabinet;
 
+use App\Entity\Post\Category;
 use App\Entity\Post\Post;
+use App\Http\Requests\Cabinet\PostRequest;
+use App\Services\Cabinet\PostService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $service;
+
+    public function __construct(PostService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        $posts = Post::where('owner_id', Auth::id())->orderBy('published_at')->get();
+        $posts = Post::where('owner_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
         return view('cabinet.post.index', compact('posts'));
     }
@@ -28,18 +33,16 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('cabinet.post.create');
+        $categories = Category::defaultOrder()->withDepth()->getModels();
+
+        return view('cabinet.post.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = $this->service->save($request);
+
+        return redirect()->route('cabinet.home')->with('success', 'объявление успешно сохранено');
     }
 
     /**
@@ -53,37 +56,46 @@ class PostsController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Post $post)
+    {
+        $categories = Category::defaultOrder()->withDepth()->getModels();
+
+        return view('cabinet.post.edit', compact('post', 'categories'));
+    }
+
+
+    public function update(PostRequest $request, Post $post)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(Post $post)
     {
-        //
+        if (!\Gate::allows('post-owner', $post)){
+            abort(403);
+        }
+
+        try {
+            $this->service->delete($post);
+
+            return redirect()->route('cabinet.post.index')->with('success', 'Пост успешно удалён');
+        } catch (\DomainException $e) {
+            return redirect()->route('cabinet.post.index')->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function moderate(Post $post)
     {
-        //
+        if (!\Gate::allows('post-owner', $post)){
+            abort(403);
+        }
+
+        try {
+            $this->service->moderate($post->id);
+
+            return redirect()->route('cabinet.home')->with('success', "Пост отправлен на модерацию");
+        } catch (\DomainException $e) {
+            return redirect()->route('cabinet.home')->with('error', $e->getMessage());
+        }
     }
 }
