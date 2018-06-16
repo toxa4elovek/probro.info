@@ -1,0 +1,29 @@
+.card {
+  background: $post-background;
+  margin-top: 3rem;
+  position: relative;
+  box-sizing: border-box;
+  transition: box-shadow 150ms linear;
+  box-shadow: 0 1px 3px rgba(76,105,137,.28);
+  border: 0.07rem solid #cbd6e2;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -o-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.card:hover {
+  -webkit-box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+  -moz-box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+  box-shadow: 0 0 10px 0 rgba(76,105,137,0.61);
+}
+
+.card-header {
+  border-top-left-radius: 15px!important;
+  border-top-right-radius: 15px!important;
+  text-transform: uppercase;
+  display: block;
+  color: #4c6989;
+  text-align: center;
+  font-size: 1.5rem;
+}

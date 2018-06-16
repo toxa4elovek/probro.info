@@ -66,6 +66,14 @@
                     </li>
 
                     @else
+                            <li class="nav-item">
+                                <div class="create-post-button">
+                                    <a class="nav-link" href="{{ route('cabinet.post.create') }}">
+                                        Добавить пост
+                                    </a>
+                                </div>
+
+                            </li>
                         <li class="nav-item">
                             <div class="navbar-hover">
                                 <a id="navbarDropdown" class="nav-link" href="{{ route('cabinet.home') }}">

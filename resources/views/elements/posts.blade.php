@@ -16,13 +16,6 @@
                 </h3>
             </div>
             <div class="post-block-content">
-                <nav aria-label="post-block-content-breadcrumb breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Категория</a></li>
-                        <li class="breadcrumb-item"><a href="#">Категория</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Категория</li>
-                    </ol>
-                </nav>
                 <div class="post-block-content-body">
                     <div class="body-content">
                         <img class="body-img rounded float-left img-fluid" src={{ $post->img }} alt="">

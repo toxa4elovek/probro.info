@@ -19,11 +19,16 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{category_path}', 'HomeController@category')->name('category')->where('category_path', '.+');
 
 Route::get('/post/view', function () {
-    return view('post.view');
+    $categories = \App\Entity\Post\Category::all();
+    return view('post.view', compact('categories'));
 });
 
 Route::get('/profile', function () {
     return view('user.profile.update');
+});
+
+Route::get('/about_us',function () {
+    return view('footer.about');
 });
 
 Route::group(

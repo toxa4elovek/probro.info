@@ -13,3 +13,21 @@ $navbar-padding-y: 0;
 $navbar-light-active-color: #fff;
 $color-base: #4c6989;
 $post-background: #fff;
+$primary: #4c6989;
+$success: #4c896c;
+$danger: #894c69;
+$error: #c00000;
+$done: green;
+$notice: orange;
+$info: #1164b4;
+$warning: #fff;
+$theme-colors: () !default;
+
+
+
+$theme-colors: map-merge((
+        "error" : $error,
+        "done" : $done,
+        "notice" : $notice,
+        "info" : $info
+), $theme-colors);
