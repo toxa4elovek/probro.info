@@ -10,31 +10,63 @@
                 <div class="tab-block-right tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <div class="profile-block">
-                            <form action="#" method="post" class="form-active">
+                            <form action="{{ route('cabinet.profile.update', $user) }}" method="post" class="form-active">
+                                @csrf
+                                @method('PUT')
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="login" placeholder="Логин :">
+                                    <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                           name="name" value="{{ old('name', $user->name) }}" placeholder="Имя :">
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="email" placeholder="Email :">
+                                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                           value="{{ old('email', $user->email) }}" name="email" placeholder="Email :">
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="button">
-                                    <input type="button" class="btn btn-primary" value="Сохранить">
+                                    <input type="submit" class="btn btn-primary" value="Сохранить">
                                 </div>
                             </form>
                         </div>
                         <div class="profile-block">
-                            <form action="#" method="post" class="form-active">
+
+                            <form action="{{ route('cabinet.profile.changePassword', $user) }}" method="post" class="form-active">
+                                @csrf
+                                @method('PUT')
                                 <div class="form-group">
-                                    <input type="password" class="form-control" name="old-password" placeholder="Старый пароль :">
+                                    <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" placeholder="Старый пароль :">
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" name="new-password" placeholder="Новый пароль :">
+                                    <input type="password" class="form-control {{ $errors->has('newPassword') ? 'is-invalid' : '' }}" name="newPassword" placeholder="Новый пароль :">
+                                    @if ($errors->has('newPassword'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('newPassword') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" name="confirm-password" placeholder="Повторите пароль :">
+                                    <input type="password" class="form-control {{ $errors->has('newPassword_confirmed') ? 'is-invalid' : '' }}" name="newPassword_confirmed" placeholder="Повторите пароль :">
+                                    @if ($errors->has('newPassword_confirmed'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('newPassword_confirmed') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="button">
-                                    <input type="button" class="btn btn-primary" value="Сохранить">
+                                    <input type="submit" class="btn btn-primary" value="Сохранить">
                                 </div>
                             </form>
                         </div>

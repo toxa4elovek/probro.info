@@ -13,6 +13,8 @@ class HomeController extends Controller
 
     public function profile()
     {
-        return view('cabinet.profile');
+        $user = \Auth::user();
+
+        return view('cabinet.profile', compact('user'));
     }
 }

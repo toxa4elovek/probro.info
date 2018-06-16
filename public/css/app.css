@@ -10840,3 +10840,9 @@ a:hover {
   background-color: #415A76;
 }
 
+.tips-block {
+  right: 0;
+  top: 2.5rem;
+  z-index: 10;
+}
+

@@ -23388,7 +23388,6 @@ module.exports = __webpack_require__(43);
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -23396,6 +23395,17 @@ module.exports = __webpack_require__(43);
  */
 
 __webpack_require__(13);
+
+$(document).ready(function () {
+
+    $('.message-tips').each(function (index, elem) {
+        var time = (index + 1) * 2000;
+
+        setTimeout(function () {
+            $(elem).fadeOut();
+        }, time);
+    });
+});
 
 console.log('app');
 

@@ -82,3 +82,9 @@ a:hover {
 .footer-block a:hover {
   background-color: $navbar-div-hover-color;
 }
+
+.tips-block {
+  right: 0;
+  top: 2.5rem;
+  z-index: 10;
+}

@@ -50,5 +50,7 @@ Route::group(
         Route::get('/profile', 'HomeController@profile')->name('profile');
         Route::resource('post', 'PostsController')->except('show');
         Route::post('/post/moderate/{post}', 'PostsController@moderate')->name('post.moderate');
+        Route::put('/profile/update/{user}', 'UsersController@update')->name('profile.update');
+        Route::put('/profile/change-password/{user}', 'UsersController@changePassword')->name('profile.changePassword');
     }
 );
