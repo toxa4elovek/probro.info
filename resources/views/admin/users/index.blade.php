@@ -5,9 +5,6 @@
     <div class="container">
         @include('admin._nav', ['page' => 'user'])
         <div class="row">
-
-
-
             <table class="table table-bordered table-stripped">
                 <thead>
                 <tr>

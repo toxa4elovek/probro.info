@@ -5,6 +5,7 @@ namespace App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Helpers\PostHelper;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $status
  * @property string $slug
  * @property string $img
+ * @property Seo $seo
  * @property string|null $published_at
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -35,6 +37,11 @@ class Post extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function seo()
+    {
+        return $this->hasOne(Seo::class, 'post_id', 'id');
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
@@ -45,6 +52,10 @@ class Post extends Model
         return $this->hasManyThrough(Tag::class, 'post_tags', 'post_id', 'tag_id', 'id', 'id');
     }
 
+    /**
+     * @param $data
+     * @return self
+     */
     public static function add($data)
     {
         return self::create([
@@ -88,5 +99,26 @@ class Post extends Model
             'status' => PostHelper::STATUS_MODERATE,
             'published_at' => null
         ]);
+    }
+
+    public function moveToDraft(): bool
+    {
+        return $this->update([
+            'status' => PostHelper::STATUS_DRAFT,
+            'published_at' => null
+        ]);
+    }
+
+    public function activate()
+    {
+        return $this->update([
+            'status' => PostHelper::STATUS_ACTIVE,
+            'published_at' => Carbon::now()
+        ]);
+    }
+
+    public function isEmptySeo(): bool
+    {
+        return !(bool) $this->seo;
     }
 }

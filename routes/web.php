@@ -40,6 +40,10 @@ Route::group(
         Route::resource('category', 'CategoriesController');
         Route::resource('users', 'UsersController')->only(['index']);
         Route::post('users/verify/{user}', 'UsersController@verify')->name('users.verify');
+        Route::resource('posts', 'PostsController');
+        Route::post('/posts/activate/{post}', 'PostsController@activate')->name('posts.activate');
+        Route::post('/posts/moderate/{post}', 'PostsController@moderate')->name('posts.moderate');
+        Route::put('/seo/update/{post}', 'Post\SeoController@update')->name('posts.seo.update');
     }
 );
 

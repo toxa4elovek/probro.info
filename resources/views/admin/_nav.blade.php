@@ -12,7 +12,7 @@
     @endcan
 
     <li class="nav-item">
-        <a class="nav-link{{ $page === 'post' ? ' active' : '' }}" href="{{ route('admin.users.index') }}">Пользователи</a>
+        <a class="nav-link{{ $page === 'post' ? ' active' : '' }}" href="{{ route('admin.posts.index') }}">Посты</a>
     </li>
 
 </ul>

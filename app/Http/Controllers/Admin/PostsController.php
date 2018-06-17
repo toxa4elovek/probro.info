@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Post\Category;
 use App\Entity\Post\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\Cabinet\PostRequest;
+use App\Http\Requests\Cabinet\PostUpdateRequest;
+use App\Services\Admin\Post\SeoService;
+use App\Services\Cabinet\PostService;
 use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $service;
+    private $seoService;
+
+    public function __construct(PostService $service, SeoService $seoService)
+    {
+        $this->service    = $service;
+        $this->seoService = $seoService;
+    }
+
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('owner')->orderBy('created_at', 'desc')->paginate(20);
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -27,62 +35,89 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::defaultOrder()->withDepth()->get();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        try {
+            $post = $this->service->save($request);
+
+            return redirect()->route('admin.posts.show', compact('post'))
+                ->with(['success' => 'Пост успешно сохранён']);
+        } catch (\DomainException $e) {
+            return back()->with(['error' => $e->getMessage()]);
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $categories = Category::defaultOrder()->withDepth()->get();
+        $post       = Post::where('id', $id)->with('seo')->first();
+
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(PostUpdateRequest $request, Post $post)
     {
-        //
+        try {
+            $this->service->update($request, $post);
+
+            return redirect()->route('admin.posts.show', compact('post'))
+                ->with('success', 'Пост успешно обновлён');
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function activate(Post $post)
     {
-        //
+        try {
+            $this->service->activate($post);
+
+            return redirect()->route('admin.posts.index')
+                ->with('success', 'Пост успешно опубликован');
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function moderate($id)
+    {
+        try {
+            $this->service->moderate($id);
+
+            return redirect()->route('admin.posts.index')
+                ->with('success', 'Пост отправлен на модерацию');
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function draft(Post $post)
+    {
+        try {
+            $this->service->moveToDraft($post);
+
+            return redirect()->route('admin.posts.show', $post)
+                ->with('success', 'Пост доступен для редактирования');
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->forceDelete();
     }
 }

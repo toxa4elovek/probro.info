@@ -7,9 +7,11 @@ namespace App\Services\Cabinet;
 
 
 use App\Entity\Post\Post;
+use App\Helpers\FileHelper;
 use App\Helpers\PostHelper;
 use App\Http\Requests\Cabinet\PostRequest;
 use App\Http\Requests\Cabinet\PostUpdateRequest;
+use App\Services\Admin\Post\SeoService;
 use Illuminate\Http\UploadedFile;
 
 class PostService
@@ -18,14 +20,16 @@ class PostService
     public function save(PostRequest $request)
     {
         $post = Post::add([
-            'owner_id' => \Auth::id(),
+            'owner_id' => $request['user_id'] ? $request['user_id'] : \Auth::id(),
             'title' => $request['title'],
             'category_id' => $request['category_id'],
             'description' => $request['description'],
-            'img' => $this->saveFile($request['img']),
+            'img' => FileHelper::upload($request['img']),
             'status' => PostHelper::STATUS_DRAFT,
             'slug' => str_slug($request['title'])
         ]);
+
+        $post->seo()->create();
 
         return $post;
     }
@@ -36,25 +40,20 @@ class PostService
             throw new \DomainException('Нельзя редактировать опубликованный пост');
         }
 
+        if ($post->isEmptySeo()) {
+            $post->seo()->create();
+        }
+
         return $post->update([
             'title' => $request['title'],
             'category_id' => $request['category_id'],
             'description' => $request['description'],
             'status' => PostHelper::STATUS_DRAFT,
             'img' => $request['img'] instanceof UploadedFile
-                ? $this->saveFile($request['img'])
+                ? FileHelper::upload($request['img'])
                 : $post->img,
             'slug' => str_slug($request['title'])
         ]);
-    }
-
-    private function saveFile(UploadedFile $file): string
-    {
-        $fileName = $file->hashName();
-        $directory = substr($fileName, 0, 3) . '/'
-                    .substr($fileName, 0, 2);
-
-        return '/storage/' . $file->store('posts/' . $directory, 'public');
     }
 
     /**
@@ -62,19 +61,32 @@ class PostService
      */
     public function moderate($postId)
     {
-        $post = Post::findorFail($postId);
+        $post = $this->getPost($postId);
 
-        /**@var Post $post*/
         if ($post->isModerate()) {
             throw new \DomainException('Пост уже находится на модерации');
-        }
-        if ($post->isActive()) {
-            throw new \DomainException('Пост опубликован и не может быть отправлен на модерацию');
         }
 
         if (!$post->onModerate()) {
             throw new \DomainException('Произошла ошибка');
         }
+    }
+
+    public function activate(Post $post)
+    {
+        if ($post->isActive()) {
+            throw new \DomainException('Пост уже опубликован');
+        }
+
+        if ($post->isDraft()) {
+            throw new \DomainException('Для публикации отправьте пост на модерацию');
+        }
+
+        if ($post->isEmptySeo()) {
+            throw new \DomainException('Для публикации необходимо заполнить СЕО');
+        }
+
+        $post->activate();
     }
 
     public function delete(Post $post)
@@ -84,5 +96,23 @@ class PostService
         }
 
         $post->delete();
+    }
+
+    public function moveToDraft(Post $post)
+    {
+        if (!$post->isActive()) {
+            throw new \DomainException('Нельзя снять с публикации не опубликованный пост');
+        }
+
+        $post->moveToDraft();
+    }
+
+    /**
+     * @param $postId
+     * @return Post
+     */
+    private function getPost($postId)
+    {
+        return Post::findOrFail($postId);
     }
 }
