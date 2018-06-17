@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        @include('admin._nav', ['page' => 'category'])
+        @include('admin._nav', ['page' => 'user'])
         <div class="row">
 
 

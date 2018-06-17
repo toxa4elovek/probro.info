@@ -11,4 +11,8 @@
         </li>
     @endcan
 
+    <li class="nav-item">
+        <a class="nav-link{{ $page === 'post' ? ' active' : '' }}" href="{{ route('admin.users.index') }}">Пользователи</a>
+    </li>
+
 </ul>
