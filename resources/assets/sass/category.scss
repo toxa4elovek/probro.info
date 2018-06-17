@@ -95,3 +95,28 @@
   outline: none;
 }
 
+.filter-list {
+  border-bottom: 1px solid #cbd6e2;
+}
+
+.filter-list input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: #4c6989;
+  overflow: hidden;
+  margin: 0.4rem 0;
+}
+
+.filter-list:last-child {
+  border: none;
+}
+
+@media (max-width: 767px) {
+  .filter-block {
+    display: none;
+  }
+}

@@ -37,4 +37,26 @@
             @endif
         </div>
     </div>
+
+    <div class="filter-block category-block">
+        <div class="filter-block-header category-block-header">
+            <span>Блок фильтр</span>
+        </div>
+        <div class="filter-block-body">
+            <form action="#" method="post">
+                <div class="filter-list">
+                    <input type="search" class="form-control" name="" placeholder="Поиск :">
+                </div>
+                <div class="filter-list">
+                    <input type="text" class="form-control" name="" placeholder="Выберите категорию :">
+                </div>
+                <div class="filter-list">
+                    <input type="text" class="form-control" name="" placeholder="Дата от">
+                    <input type="text" class="form-control" name="" placeholder="Дата до">
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
+

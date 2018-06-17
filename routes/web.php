@@ -24,6 +24,10 @@ Route::get('/profile', function () {
     return view('user.profile.update');
 });
 
+Route::get('/about_us',function () {
+    return view('footer.about');
+});
+
 Route::group(
     [
         'prefix' => 'admin',
