@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="filter-block category-block">
+    <!--<div class="filter-block category-block position-fixed">
         <div class="filter-block-header category-block-header">
             <span>Блок фильтр</span>
         </div>
@@ -56,7 +56,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>-->
 
 </div>
 
