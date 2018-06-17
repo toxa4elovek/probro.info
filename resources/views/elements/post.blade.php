@@ -1,10 +1,13 @@
 <div class="col-md-8">
+    <div class="post-item">
+        <h2>{{ $post->category->name }}</h2>
+    </div>
     <ul class="post-list">
         <li class="post-block">
             <div class="post-block-header">
-                <h3>
-                    <a class="post-block-header-link" href="#">{{ $post->title }}</a>
-                </h3>
+                <h1 class="post-block-header-link">
+                    {{ $post->title }}
+                </h1>
             </div>
             <div class="post-block-content">
                 <div class="post-block-content-body">
