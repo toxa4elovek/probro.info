@@ -10902,7 +10902,10 @@ a.text-notice:focus {
 
 .category-block {
   background: #fff;
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8rem;
+  z-index: 1020;
   border: 1px solid #cbd6e2;
   padding: 0 1.2rem;
   margin: 3rem 0;
